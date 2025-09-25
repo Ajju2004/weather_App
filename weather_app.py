@@ -8,12 +8,10 @@ def get_weather():
     params = {'q': city, 'appid': api_key, 'units': 'metric'}
     response = requests.get(base_url, params=params)
     data = response.json()
-
     if data.get('cod') != 200:
         weather_result.set(f"Error: {data.get('message', 'Cannot fetch weather data')}")
         result_label.config(fg='red')
         return
-    
     weather_desc = data['weather'][0]['description'].title()
     temp = data['main']['temp']
     humidity = data['main']['humidity']
